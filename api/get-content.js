@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
-    const GITHUB_REPO = "your-username/your-repo";
-    const FILE_PATH = "content.txt";
+    const GITHUB_REPO = "SyuneHovan/syuniq";
+    const FILE_PATH = "content.html";
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
 
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`;
