@@ -47,7 +47,7 @@ pre {
     font-family: "Courier New", monospace;
 } 
 .editable-content {
-    margin-top: 21px;
+    margin-top: 25px;
     /* background: #2a2a2a;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
@@ -124,4 +124,10 @@ ol {
 #editor {
     min-height: 200px;
     padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #212121;
+}
+#editor:focus-visible {
+    outline: none;
+    border: 1px solid #595959;
 }
