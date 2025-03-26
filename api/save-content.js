@@ -34,6 +34,6 @@ export default async function handler(req, res) {
 
         res.status(200).send("Content saved successfully!");
     } catch (error) {
-        res.status(500).send("Error saving content");
+        res.status(500).send(error);
     }
 }

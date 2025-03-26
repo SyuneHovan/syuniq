@@ -71,6 +71,7 @@ function redoAction() {
 function triggerPrism() {
     // Trigger Prism's syntax highlighting on the newly inserted code block
     var codeBlock = document.querySelector('pre code.language-csharp');
+    console.log("codeBlock", codeBlock)
     if (codeBlock) {
         Prism.highlightElement(codeBlock);
     }
