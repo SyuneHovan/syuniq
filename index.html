@@ -593,71 +593,47 @@ public class SpecialToyBox : ToyBox
         
     </div>
 
-    <script>// Function to apply formatting (tag, like <b>, <i>, etc.)
+    <script>
+        // Function to apply formatting
         function formatText(tag) {
             document.execCommand('formatBlock', false, tag);
-            saveToLocalStorage(); // Save content after applying formatting
         }
-        
         function applyItalic() {
             document.execCommand('italic');
-            saveToLocalStorage(); // Save content after applying italic
         }
-        
+
         function applyNote() {
             // Ensure the selection exists and the browser supports execCommand
             var selection = window.getSelection();
             if (selection.rangeCount === 0) return;
-        
-            // Get the selected content and wrap it in a 'note' class using execCommand
+
+            // Wrap the selected content in a 'note' class using execCommand
             document.execCommand('insertHTML', false, '<div class="note">' + selection.toString() + '</div>');
-            saveToLocalStorage(); // Save content after applying the note
         }
         
         function applyCode() {
             // Ensure the selection exists and the browser supports execCommand
             var selection = window.getSelection();
             if (selection.rangeCount === 0) return;
-        
+
             // Get the selected content as a string
             var selectedText = selection.toString();
-        
+
             // Remove all HTML tags from the selected content using a regular expression
             selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
-        
+
             // Wrap the cleaned content in 'pre' and 'code' tags
             document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
-            triggerPrism(); // Call Prism to apply syntax highlighting
-            saveToLocalStorage(); // Save content after applying the code block
+            trigerPrism();
         }
-        
-        // Function to trigger Prism's syntax highlighting on the newly inserted code block
-        function triggerPrism() {
+
+        function trigerPrism() {
             // Trigger Prism's syntax highlighting on the newly inserted code block
             var codeBlock = document.querySelector('pre code.language-csharp');
             if (codeBlock) {
                 Prism.highlightElement(codeBlock);
             }
         }
-        
-        // Function to save the current page content to localStorage
-        function saveToLocalStorage() {
-            var content = document.body.innerHTML; // Get the entire HTML content of the page
-            localStorage.setItem('pageContent', content); // Save it in localStorage
-        }
-        
-        // Function to load the saved content from localStorage when the page is reloaded
-        function loadFromLocalStorage() {
-            var savedContent = localStorage.getItem('pageContent');
-            if (savedContent) {
-                document.body.innerHTML = savedContent; // Replace the current content with the saved content
-                triggerPrism(); // Re-apply Prism syntax highlighting on page load
-            }
-        }
-        
-        // Load the content from localStorage when the page is loaded
-        window.onload = loadFromLocalStorage;
-        
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
