@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Styled Page</title>
+    <link rel="icon" type="image/x-icon" href="/imgs/favicon.ico">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <style>
         .language-csharp {
@@ -19,7 +20,6 @@
             background-color: #212121;
             color: #d5d5d5;
             margin: 0;
-            padding: 20px;
         }
         em {
             color: #7bdbdd;
@@ -55,13 +55,15 @@
             overflow-x: auto;
             font-family: "Courier New", monospace;
         } 
+        .editable-content {
+            /* background: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+        }
         .container {
             max-width: 800px;
             padding: 20px;
             margin: auto;
-            /* background: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
         }
         .note {
             font-size: 12px !important;
@@ -121,6 +123,7 @@
     </style>
 </head>
 <body>
+<div class="container">
     <div class="toolbar">
         <button onclick="formatText('h1')">H1</button>
         <button onclick="formatText('h2')">H2</button>
@@ -134,7 +137,7 @@
         <button onclick="applyItalic()">Italic</button>
     </div>
     
-    <div class="container editable-content" contenteditable="true">
+    <div class="editable-content" contenteditable="true">
 
         <div class="note">
             -- Future Questions --
@@ -602,6 +605,6 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-csharp.min.js"></script>
-
+</div>
 </body>
 </html>
