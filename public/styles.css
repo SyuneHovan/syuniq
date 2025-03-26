@@ -46,12 +46,6 @@ pre {
     overflow-x: auto;
     font-family: "Courier New", monospace;
 } 
-.editable-content {
-    margin-top: 60px;
-    /* background: #2a2a2a;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
-}
 .container {
     max-width: 800px;
     padding: 20px;
