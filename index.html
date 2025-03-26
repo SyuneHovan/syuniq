@@ -28,19 +28,19 @@
             color: #d5d5d5;
         }
         h1 {
-            font-size: 20px !important;
+            font-size: 18px !important;
         }
         h2 {
-            font-size: 19px;
-        }
-        h3 {
-            font-size: 18px;
-        }
-        h4 {
             font-size: 17px;
         }
-        h5 {
+        h3 {
             font-size: 16px;
+        }
+        h4 {
+            font-size: 15px;
+        }
+        h5 {
+            font-size: 14px;
         }
         p, li {
             font-size: 12px;
@@ -110,20 +110,21 @@
         .toolbar {
             position: fixed;
             top: 0;
-            padding: 20px 0px;
+            padding: 10px;
             width: -webkit-fill-available;
             left: 0;
             backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 5px;
+            flex-wrap: wrap;
         }
         .toolbar button {
             background-color: #333;
             color: #d5d5d5;
             border: 1px solid #818181;
-            padding: 8px 12px;
-            font-size: 14px;
+            padding: 4px 5px;
+            font-size: 10px;
             cursor: pointer;
         }
         .toolbar button:hover {
@@ -593,47 +594,71 @@ public class SpecialToyBox : ToyBox
         
     </div>
 
-    <script>
-        // Function to apply formatting
+    <script>// Function to apply formatting (tag, like <b>, <i>, etc.)
         function formatText(tag) {
             document.execCommand('formatBlock', false, tag);
+            saveToLocalStorage(); // Save content after applying formatting
         }
+        
         function applyItalic() {
             document.execCommand('italic');
+            saveToLocalStorage(); // Save content after applying italic
         }
-
+        
         function applyNote() {
             // Ensure the selection exists and the browser supports execCommand
             var selection = window.getSelection();
             if (selection.rangeCount === 0) return;
-
-            // Wrap the selected content in a 'note' class using execCommand
+        
+            // Get the selected content and wrap it in a 'note' class using execCommand
             document.execCommand('insertHTML', false, '<div class="note">' + selection.toString() + '</div>');
+            saveToLocalStorage(); // Save content after applying the note
         }
         
         function applyCode() {
             // Ensure the selection exists and the browser supports execCommand
             var selection = window.getSelection();
             if (selection.rangeCount === 0) return;
-
+        
             // Get the selected content as a string
             var selectedText = selection.toString();
-
+        
             // Remove all HTML tags from the selected content using a regular expression
             selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
-
+        
             // Wrap the cleaned content in 'pre' and 'code' tags
             document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
-            trigerPrism();
+            triggerPrism(); // Call Prism to apply syntax highlighting
+            saveToLocalStorage(); // Save content after applying the code block
         }
-
-        function trigerPrism() {
+        
+        // Function to trigger Prism's syntax highlighting on the newly inserted code block
+        function triggerPrism() {
             // Trigger Prism's syntax highlighting on the newly inserted code block
             var codeBlock = document.querySelector('pre code.language-csharp');
             if (codeBlock) {
                 Prism.highlightElement(codeBlock);
             }
         }
+        
+        // Function to save the current page content to localStorage
+        function saveToLocalStorage() {
+            var content = document.body.innerHTML; // Get the entire HTML content of the page
+            localStorage.setItem('pageContent', content); // Save it in localStorage
+        }
+        
+        // Function to load the saved content from localStorage when the page is reloaded
+        function loadFromLocalStorage() {
+            var savedContent = localStorage.getItem('pageContent');
+            if (savedContent) {
+                document.body.innerHTML = savedContent; // Replace the current content with the saved content
+                triggerPrism(); // Re-apply Prism syntax highlighting on page load
+            }
+        }
+        
+        // Load the content from localStorage when the page is loaded
+        window.onload = loadFromLocalStorage;
+        
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
