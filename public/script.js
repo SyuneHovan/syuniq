@@ -53,10 +53,13 @@ function applyCode() {
     
     // Check if the selected text is already inside <pre><code> tags
     if (selectedText.includes('<pre><code')) {
+        console.log("if");
+        
         // Remove the <pre><code> tags and replace them with <p> tags
         selectedText = selectedText.replace(/<\/?pre><\/?code[^>]*>/g, ''); // Remove <pre><code> tags
         selectedText = '<p>' + selectedText + '</p>'; // Wrap with <p> tags
     } else {
+        console.log("else");
         // Remove all HTML tags from the selected content using a regular expression
         selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
 
