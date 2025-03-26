@@ -59,11 +59,9 @@
             /* background: #2a2a2a;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
-            margin-top: 60px;
         }
         .container {
             max-width: 800px;
-            position: relative;
             padding: 20px;
             margin: auto;
         }
@@ -110,15 +108,6 @@
         /* Editor toolbar styles */
         .toolbar {
             margin-bottom: 20px;
-            position: fixed;
-            top: 0;
-            padding: 20px 0px;
-            width: -webkit-fill-available;
-            left: 0;
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            gap: 10px;
         }
         .toolbar button {
             background-color: #333;
@@ -574,24 +563,24 @@
         <p>Use <em>const</em> when you have a truly constant value known at compile time, and use <em>static readonly</em> when the value is fixed but may need to be initialized based on some runtime logic.</p>
         <h1>DIFFERENCE BETWEEN <em>public</em>, <em>privat</em>, <em>protected</em> AND <em>internal</em>?</h1>
         <p>public class ToyBox</p>
-    <pre><code class="language-csharp">{
-        public string PublicToy { get; set; }   	// Anyone can see and use this toy.
-        private string PrivateToy { get; set; }   	// Only this class can see and use this toy.
-        protected string ProtectedToy { get; set; }	// This class and its deprived classes can see / use this toy.
-        internal string InternalToy { get; set; }   	// Only this assembly (project) can see and use this toy.
+<pre><code class="language-csharp">{
+    public string PublicToy { get; set; }   	// Anyone can see and use this toy.
+    private string PrivateToy { get; set; }   	// Only this class can see and use this toy.
+    protected string ProtectedToy { get; set; }	// This class and its deprived classes can see / use this toy.
+    internal string InternalToy { get; set; }   	// Only this assembly (project) can see and use this toy.
+}
+
+public class SpecialToyBox : ToyBox
+{
+    public void ShowToys()
+    {
+        // Can access all toys here
+        Console.WriteLine(PublicToy);     	// OK: Anyone can see it
+        Console.WriteLine(ProtectedToy);    	// OK: Inherited class can see it
+        Console.WriteLine(PrivateToy);  	// ERROR: Can't see PrivateToy, it's a secret!
+        Console.WriteLine(InternalToy);    	// OK: It's in the same project
     }
-    </code></pre>
-        <p>public class SpecialToyBox : ToyBox</p>
-        <p>{</p>
-        <p>    public void ShowToys()</p>
-        <p>    {</p>
-        <p>        // Can access all toys here</p>
-        <p>        Console.WriteLine(PublicToy);     	// OK: Anyone can see it</p>
-        <p>        Console.WriteLine(ProtectedToy);    	// OK: Inherited class can see it</p>
-        <p>        Console.WriteLine(PrivateToy);  	// ERROR: Can't see PrivateToy, it's a secret!</p>
-        <p>        Console.WriteLine(InternalToy);    	// OK: It's in the same project</p>
-        <p>    }</p>
-        <p>}<strong></strong></p>
+}</code></pre>
         
     </div>
 
