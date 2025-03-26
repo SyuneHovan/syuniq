@@ -59,6 +59,14 @@ function applyCode() {
     saveContent(); // Save content after applying the code block
 }
 
+function undoAction() {
+    document.execCommand('undo');
+}
+
+function redoAction() {
+    document.execCommand('redo');
+}
+
 // Function to trigger Prism's syntax highlighting on the newly inserted code block
 function triggerPrism() {
     // Trigger Prism's syntax highlighting on the newly inserted code block
