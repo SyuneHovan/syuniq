@@ -50,7 +50,7 @@ function applyCode() {
     // Remove all HTML tags from the selected content using a regular expression
     selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
 
-    
+     
     // Check if the selected text is already inside <pre><code> tags
     if (selectedText.includes('<pre><code')) {
         console.log("if");
