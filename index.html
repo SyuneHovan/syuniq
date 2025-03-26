@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Styled Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #202123;
+            color: #d1d5db;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #2d2f34;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: #3b3f45;
+            color: #d1d5db;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            background-color: #10a37f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0e8c6b;
+        }
+        .notes {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .note {
+            background: #3b3f45;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ChatGPT Styled Notes</h2>
+        <textarea id="noteInput" placeholder="Type your note here..."></textarea>
+        <button onclick="saveNote()">Save Note</button>
+        <div class="notes" id="notesList"></div>
+    </div>
+
+    <script>
+        function saveNote() {
+            const noteInput = document.getElementById('noteInput');
+            const notesList = document.getElementById('notesList');
+            if (noteInput.value.trim() === '') return;
+            
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.textContent = noteInput.value;
+            
+            notesList.appendChild(note);
+            localStorage.setItem('notes', notesList.innerHTML);
+            noteInput.value = '';
+        }
+
+        window.onload = function () {
+            document.getElementById('notesList').innerHTML = localStorage.getItem('notes') || '';
+        };
+    </script>
+</body>
+</html>
