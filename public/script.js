@@ -24,12 +24,10 @@ document.getElementById("editor").addEventListener("input", saveContent);
 // Function to apply formatting (tag, like <b>, <i>, etc.)
 function formatText(tag) {
     document.execCommand('formatBlock', false, tag);
-    saveContent(); // Save content after applying formatting
 }
 
 function applyItalic() {
     document.execCommand('italic');
-    saveContent(); // Save content after applying italic
 }
 
 function applyNote() {
@@ -39,7 +37,6 @@ function applyNote() {
 
     // Get the selected content and wrap it in a 'note' class using execCommand
     document.execCommand('insertHTML', false, '<div class="note">' + selection.toString() + '</div>');
-    saveContent(); // Save content after applying the note
 }
 
 function applyCode() {
@@ -56,7 +53,6 @@ function applyCode() {
     // Wrap the cleaned content in 'pre' and 'code' tags
     document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
     triggerPrism(); // Call Prism to apply syntax highlighting
-    saveContent(); // Save content after applying the code block
 }
 
 function undoAction() {
