@@ -50,6 +50,20 @@ function applyCode() {
     // Remove all HTML tags from the selected content using a regular expression
     selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
 
+    
+    // Check if the selected text is already inside <pre><code> tags
+    if (selectedText.includes('<pre><code')) {
+        // Remove the <pre><code> tags and replace them with <p> tags
+        selectedText = selectedText.replace(/<\/?pre><\/?code[^>]*>/g, ''); // Remove <pre><code> tags
+        selectedText = '<p>' + selectedText + '</p>'; // Wrap with <p> tags
+    } else {
+        // Remove all HTML tags from the selected content using a regular expression
+        selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
+
+        // Wrap the cleaned content in 'pre' and 'code' tags
+        selectedText = '<pre><code class="language-csharp">' + selectedText + '</code></pre>';
+    }
+
     // Wrap the cleaned content in 'pre' and 'code' tags
     document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
     triggerPrism(); // Call Prism to apply syntax highlighting
