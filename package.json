@@ -1,0 +1,11 @@
+{
+    "name": "github-editor",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "vercel dev"
+    },
+    "dependencies": {
+      "node-fetch": "^3.3.0"
+    }
+  }
+  

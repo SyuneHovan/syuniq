@@ -6,136 +6,7 @@
     <title>Սիւնիք</title>
     <link rel="icon" type="image/x-icon" href="/imgs/favicon.ico">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    <style>
-        .language-csharp {
-            padding: 0px;
-            tab-size: 2 !important;
-            line-height: 16px !important;
-        }
-        .language-csharp .token.comment {
-            font-style: italic;
-        }
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #212121;
-            color: #d5d5d5;
-            margin: 0;
-        }
-        em {
-            color: #7bdbdd;
-        }
-        h1, h2, h3 {
-            color: #d5d5d5;
-        }
-        h1 {
-            font-size: 18px !important;
-        }
-        h2 {
-            font-size: 17px;
-        }
-        h3 {
-            font-size: 16px;
-        }
-        h4 {
-            font-size: 15px;
-        }
-        h5 {
-            font-size: 14px;
-        }
-        p, li {
-            font-size: 12px;
-            line-height: 1.6;
-        }
-        pre {
-            background-color: #2e2e2e;
-            font-size: 12px !important;
-            color: #70b5d5;
-            padding: 10px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: "Courier New", monospace;
-        } 
-        .editable-content {
-            margin-top: 60px;
-            /* background: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
-        }
-        .container {
-            max-width: 800px;
-            padding: 20px;
-            margin: auto;
-        }
-        .note {
-            font-size: 12px !important;
-            color: #aaaaaa;
-            /* padding: 10px; */
-            border-radius: 8px;
-            /* border: #3f3f3f 1px solid; */
-            overflow-x: auto;
-            font-family: "Courier New", monospace;
-            font-style: italic;
-        }
-        table{
-            width:100%; 
-            border-collapse:collapse; 
-            font-size: 12px;
-        }
-        table td{
-            padding:7px;
-            border: #818181 1px solid;
-        }
-        table td:first-child {
-            border-left: none;
-            border-top: none;
-            font-weight: 600;
-        }
-        table tr:first-child td {
-            border-top: none;
-            font-weight: 600;
-        }
-        table td:last-child {
-            border-right: none;
-            border-bottom: none;
-        }
-        table tr:last-child td {
-            border-bottom: none;
-        }
-        ol {
-            margin: 0px
-        }
-        
-        
-        /* Editor toolbar styles */
-        .toolbar {
-            position: fixed;
-            top: 0;
-            padding: 10px;
-            width: -webkit-fill-available;
-            left: 0;
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        .toolbar button {
-            background-color: #333;
-            color: #d5d5d5;
-            border: 1px solid #818181;
-            padding: 4px 5px;
-            font-size: 10px;
-            cursor: pointer;
-        }
-        .toolbar button:hover {
-            background-color: #444;
-        }
-        #editor {
-            min-height: 200px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="container">
@@ -155,7 +26,7 @@
     
     <div id="editor" class="editable-content" contenteditable="true"></div>
 
-    <script>
+    <!-- <script>
         
         const SERVER_URL = "https://syuniq.vercel.app:3000"; // Change this if deployed
 
@@ -231,10 +102,11 @@
             .catch(error => console.error("Error saving content:", error));
         }
         
-    </script>
+    </script> -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-csharp.min.js"></script>
+    <script src="script.js"></script>
 </div>
 </body>
 </html>
