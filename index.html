@@ -562,8 +562,8 @@
         <h3><strong>Conclusion</strong></h3>
         <p>Use <em>const</em> when you have a truly constant value known at compile time, and use <em>static readonly</em> when the value is fixed but may need to be initialized based on some runtime logic.</p>
         <h1>DIFFERENCE BETWEEN <em>public</em>, <em>privat</em>, <em>protected</em> AND <em>internal</em>?</h1>
-        <p>public class ToyBox</p>
-<pre><code class="language-csharp">{
+<pre><code class="language-csharp">public class ToyBox
+{
     public string PublicToy { get; set; }   	// Anyone can see and use this toy.
     private string PrivateToy { get; set; }   	// Only this class can see and use this toy.
     protected string ProtectedToy { get; set; }	// This class and its deprived classes can see / use this toy.
@@ -601,6 +601,22 @@ public class SpecialToyBox : ToyBox
             // Wrap the selected content in a 'note' class using execCommand
             document.execCommand('insertHTML', false, '<div class="note">' + selection.toString() + '</div>');
         }
+        
+        function applyCode() {
+            // Ensure the selection exists and the browser supports execCommand
+            var selection = window.getSelection();
+            if (selection.rangeCount === 0) return;
+
+            // Get the selected content as a string
+            var selectedText = selection.toString();
+
+            // Remove all HTML tags from the selected content using a regular expression
+            selectedText = selectedText.replace(/<\/?[^>]+(>|$)/g, "");
+
+            // Wrap the cleaned content in 'pre' and 'code' tags
+            document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
+        }
+
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
