@@ -624,8 +624,16 @@ public class SpecialToyBox : ToyBox
 
             // Wrap the cleaned content in 'pre' and 'code' tags
             document.execCommand('insertHTML', false, '<pre><code class="language-csharp">' + selectedText + '</code></pre>');
+            trigerPrism();
         }
 
+        function trigerPrism() {
+            // Trigger Prism's syntax highlighting on the newly inserted code block
+            var codeBlock = document.querySelector('pre code.language-csharp');
+            if (codeBlock) {
+                Prism.highlightElement(codeBlock);
+            }
+        }
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
