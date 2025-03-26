@@ -11,6 +11,8 @@ export default async function handler(req, res) {
         });
         const data = await response.json();
 
+        console.log("data", data)
+
         if (data.content) {
             const content = Buffer.from(data.content, "base64").toString("utf8");
             res.status(200).send(content);
