@@ -13,12 +13,12 @@ export default async function handler(req, res) {
 
         console.log("data", data)
 
-        if (data.content) {
-            const content = Buffer.from(data.content, "base64").toString("utf8");
-            res.status(200).send(content);
-        } else {
-            res.status(404).send("File not found");
-        }
+        // if (data.content) {
+        //     const content = Buffer.from(data.content, "base64").toString("utf8");
+        //     res.status(200).send(content);
+        // } else {
+        //     res.status(404).send("File not found");
+        // }
     } catch (error) {
         res.status(500).send("Error fetching content");
     }
