@@ -1,5 +1,5 @@
 const SERVER_URL = window.location.origin;
-let filePath = "c#.html";
+let filePath = "csharp.html";
 
 async function loadContent() {
     const response = await fetch(`${SERVER_URL}/api/get-content.js?file=${encodeURIComponent(filePath)}`);
