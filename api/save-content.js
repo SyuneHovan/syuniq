@@ -2,13 +2,16 @@ export default async function handler(req, res) {
     if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
     const GITHUB_REPO = "SyuneHovan/syuniq";
-    const FILE_PATH = "content.html";
+    const { file } = req.query; // Get FILE_PATH from query parameter
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const { content } = req.body;
 
-    console.log("Received content:", content); // Log the content to verify
+    // console.log("Received content:", content); // Log the content to verify
+    if (!file) {
+        return res.status(400).send("Missing file parameter");
+    }
 
-    const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`;
+    const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${file}`;
 
     try {
         const fileRes = await fetch(url, {
