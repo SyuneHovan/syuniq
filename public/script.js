@@ -5,6 +5,7 @@ async function loadContent() {
     const response = await fetch(`${SERVER_URL}/api/get-content.js?file=${encodeURIComponent(filePath)}`);
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
+    triggerPrism(); // Call Prism to apply syntax highlighting
 }
 
 async function saveContent() {
@@ -14,6 +15,7 @@ async function saveContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content })
     });
+    triggerPrism(); // Call Prism to apply syntax highlighting
 }
 
 // Load content on page load
