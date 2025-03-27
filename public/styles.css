@@ -71,6 +71,9 @@ table{
     width:100%; 
     border-collapse:collapse; 
     font-size: 12px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 table td{
     padding:7px;
