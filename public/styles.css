@@ -156,3 +156,7 @@ ol {
     border-bottom: #3c3c3c 2px solid;
     font-size: 12px;
 }
+
+navbar-item {
+    cursor: pointer;
+}
