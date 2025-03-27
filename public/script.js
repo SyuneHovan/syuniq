@@ -1,14 +1,15 @@
 const SERVER_URL = window.location.origin;
+let filePath = "c#.html";
 
 async function loadContent() {
-    const response = await fetch(`${SERVER_URL}/api/get-content.js`);
+    const response = await fetch(`${SERVER_URL}/api/get-content.js?file=${encodeURIComponent(filePath)}`);
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
 }
 
 async function saveContent() {
     const content = document.getElementById("editor").innerHTML;
-    await fetch(`${SERVER_URL}/api/save-content.js`, {
+    await fetch(`${SERVER_URL}/api/save-content.js?file=${encodeURIComponent(filePath)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content })
@@ -24,6 +25,10 @@ document.getElementById("editor").addEventListener("input", saveContent);
 // Function to apply formatting (tag, like <b>, <i>, etc.)
 function formatText(tag) {
     document.execCommand('formatBlock', false, tag);
+}
+
+function changePage(newFilePath) {
+    filePath = newFilePath;
 }
 
 function applyItalic() {
