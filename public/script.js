@@ -20,7 +20,7 @@ async function saveContent() {
 window.onload = loadContent;
 
 // Save content when user edits
-document.getElementById("editor").addEventListener("input", saveContent);
+// document.getElementById("editor").addEventListener("input", saveContent);
 
 // Function to apply formatting (tag, like <b>, <i>, etc.)
 function formatText(tag) {
