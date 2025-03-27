@@ -47,7 +47,7 @@ pre {
     font-family: "Courier New", monospace;
 } 
 .editable-content {
-    margin-top: 25px;
+    margin-top: 90px;
     /* background: #2a2a2a;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
@@ -99,11 +99,8 @@ ol {
 
 /* Editor toolbar styles */
 .toolbar {
-    position: fixed;
-    top: 0;
     padding: 10px;
     width: -webkit-fill-available;
-    left: 0;
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
@@ -130,4 +127,24 @@ ol {
 #editor:focus-visible {
     outline: none;
     border: 1px solid #595959;
+}
+.header {
+    position: fixed;
+    top: 0;
+    padding: 10px;
+    width: -webkit-fill-available;
+    left: 0;
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    width: -webkit-fill-available;
+    border-bottom: #3c3c3c 2px solid;
 }

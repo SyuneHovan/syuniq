@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<div class="container">
+<div class="header">
+    <div class="navbar">
+        <div class="navbar-item">C#</div>
+        <div class="navbar-item">Գրաբար</div>
+        <div class="navbar-item">Մորզէ</div>
+    </div>
     <div class="toolbar">
         <button onclick="formatText('h1')">H1</button>
         <button onclick="formatText('h2')">H2</button>
@@ -24,7 +29,8 @@
         <button onclick="undoAction()">↶</button>
         <button onclick="redoAction()">↷</button>
     </div>
-    
+</div>
+<div class="container">
     <div id="editor" class="editable-content" contenteditable="true"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
