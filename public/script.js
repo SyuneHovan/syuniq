@@ -1,14 +1,14 @@
 const SERVER_URL = "https://syuniq.vercel.app"; 
 
 async function loadContent() {
-    const response = await fetch(`${SERVER_URL}/api/get-content.js`);
+    const response = await fetch(`${SERVER_URL}/api/get-content`);
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
 }
 
 async function saveContent() {
     const content = document.getElementById("editor").innerHTML;
-    await fetch(`${SERVER_URL}/api/save-content.js`, {
+    await fetch(`${SERVER_URL}/api/save-content`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content })
