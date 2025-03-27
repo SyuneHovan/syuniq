@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
     const GITHUB_REPO = "SyuneHovan/syuniq";
-    const { file } = req.query; // Get FILE_PATH from query parameter
+    // const { file } = req.query; // Get FILE_PATH from query parameter
     const file = "content.html"; // Get FILE_PATH from query parameter
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
 
