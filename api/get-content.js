@@ -7,11 +7,11 @@ export default async function handler(req, res) {
 
     try {
         const response = await fetch(url, {
-            headers: { Authorization: `Bearer ${GITHUB_TOKEN}` }
+            headers: { Authorization: `token ${GITHUB_TOKEN}` }
         });
         const data = await response.json();
 
-        res.status(200).send(data);
+        res.status(200).send(GITHUB_TOKEN);
 
         if (data.content) {
             const content = Buffer.from(data.content, "base64").toString("utf8");
