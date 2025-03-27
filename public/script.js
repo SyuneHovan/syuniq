@@ -29,6 +29,7 @@ function formatText(tag) {
 
 function changePage(newFilePath) {
     filePath = newFilePath;
+    loadContent()
 }
 
 function applyItalic() {
