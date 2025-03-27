@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     try {
         const response = await fetch(url, {
-            headers: { Authorization: `token ${GITHUB_TOKEN}` }
+            headers: { Authorization: `Bearer ${GITHUB_TOKEN}` }
         });
         const data = await response.json();
 
