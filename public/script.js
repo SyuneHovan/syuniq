@@ -1,4 +1,4 @@
-const SERVER_URL = "https://syuniq-pz3vlmw82-syunes-projects.vercel.app"; 
+const SERVER_URL = window.location.origin;
 
 async function loadContent() {
     const response = await fetch(`${SERVER_URL}/api/get-content.js`);
