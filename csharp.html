@@ -18,8 +18,7 @@
         </ol>
     </div>
     <h1>COMPETITION ON STRINGS IN C#, ARE THEY COMPARED AS A REFERENCE OR VALUE TYPE?</h1>
-    <p>In C#, comparing two strings with the <em>==</em> operator or <em>.Equals()</em> compares the <em>actual value</em> of the strings, not their memory locations or "links." So, even if <em>A</em> and <em>B</em> are separate string objects holding the same value (like <em>"hello"</em>), C# will see them as equal because it checks the characters inside the strings, not where they are stored in memory.</p><p>Hear's a breakdown</p>
-    <p><code class="language-csharp">Here’s <span class="token class-name">a</span> breakdown<span class="token punctuation">:</span></code></p><p><strong>Comparing by Value</strong>: When you use <em>==</em> or <em>.Equals()</em> with strings, C# compares the contents (the characters) in the strings.</p>
+    <p>In C#, comparing two strings with the <em>==</em> operator or <em>.Equals()</em> compares the <em>actual value</em> of the strings, not their memory locations or "links." So, even if <em>A</em> and <em>B</em> are separate string objects holding the same value (like <em>"hello"</em>), C# will see them as equal because it checks the characters inside the strings, not where they are stored in memory.</p><p>Hear's a breakdown</p><p><strong>Comparing by Value</strong>: When you use <em>==</em> or <em>.Equals()</em> with strings, C# compares the contents (the characters) in the strings.</p>
     <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token class-name"><span class="token keyword">string</span></span> A <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
 <span class="token class-name"><span class="token keyword">string</span></span> B <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
 <span class="token class-name"><span class="token keyword">bool</span></span> areEqual <span class="token operator">=</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">// true, because "hello" == "hello"</span>
@@ -86,71 +85,71 @@
     <p>In C#, synchronization is typically achieved through various mechanisms:</p>
     <h4><strong>a. Locks&nbsp;</strong></h4>
     <p>Locks are used to restrict access to a block of code to only one thread at a time.</p>
-    <pre><code class="language-csharp">private readonly object _lockObject = new object()
-public void SafeIncrement()
-{
-    lock (_lockObject) // Acquire lock
-    {
-        // Critical section
-        // Only one thread can execute this block at a time
-        count++
-    } // Release lock
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token class-name"><span class="token keyword">object</span></span> _lockObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name"><span class="token keyword">object</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">SafeIncrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">lock</span> <span class="token punctuation">(</span>_lockObject<span class="token punctuation">)</span> <span class="token comment">// Acquire lock</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Critical section</span>
+        <span class="token comment">// Only one thread can execute this block at a time</span>
+        count<span class="token operator">++</span>
+    <span class="token punctuation">}</span> <span class="token comment">// Release lock</span>
+<span class="token punctuation">}</span></code></pre>
     <h4><strong>b. Mutexes</strong></h4>
     <p>A mutex (short for mutual exclusion) is used for cross-process synchronization. Unlike locks, mutexes can be used to synchronize threads across different applications.</p>
-    <pre><code class="language-csharp">Mutex mutex = new Mutex();
-public void AccessResource()
-{
-    mutex.WaitOne(); // Acquire the mutex
-    try
-    {
-        // Access shared resource
-    }
-    finally
-    {
-        mutex.ReleaseMutex(); // Release the mutex
-    }
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token class-name">Mutex</span> mutex <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Mutex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">AccessResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    mutex<span class="token punctuation">.</span><span class="token function">WaitOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Acquire the mutex</span>
+    <span class="token keyword">try</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Access shared resource</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">finally</span>
+    <span class="token punctuation">{</span>
+        mutex<span class="token punctuation">.</span><span class="token function">ReleaseMutex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Release the mutex</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h4><strong>c. Semaphores</strong></h4>
     <p>Semaphores are used to control access to a resource pool. Unlike locks, semaphores allow a specified number of threads to access the resource concurrently.</p>
-    <pre><code class="language-csharp">Semaphore semaphore = new Semaphore(2, 2); // Allow up to 2 threads
-public void AccessResource()
-{
-    semaphore.WaitOne(); // Acquire a permit
-    try
-    {
-        // Access shared resource
-    }
-    finally
-    {
-        semaphore.Release(); // Release the permit
-    }
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token class-name">Semaphore</span> semaphore <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Semaphore</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Allow up to 2 threads</span>
+<span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">AccessResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    semaphore<span class="token punctuation">.</span><span class="token function">WaitOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Acquire a permit</span>
+    <span class="token keyword">try</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Access shared resource</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">finally</span>
+    <span class="token punctuation">{</span>
+        semaphore<span class="token punctuation">.</span><span class="token function">Release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Release the permit</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h4><strong>d. Monitor</strong></h4>
     <p><em>Monitor</em> provides a way to synchronize access to an object. It is similar to locks but offers more control, allowing for features like waiting and signaling.</p>
-<pre><code class="language-csharp">public void AccessResource()
-{
-    Monitor.Enter(_lockObject); // Acquire the lock
-    try
-    {
-        // Access shared resource
-    }
-    finally
-    {
-        Monitor.Exit(_lockObject); // Release the lock
-    }
-}</code></pre>
+<pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">AccessResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    Monitor<span class="token punctuation">.</span><span class="token function">Enter</span><span class="token punctuation">(</span>_lockObject<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Acquire the lock</span>
+    <span class="token keyword">try</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Access shared resource</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">finally</span>
+    <span class="token punctuation">{</span>
+        Monitor<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span>_lockObject<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Release the lock</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h4><strong>e. Tasks and Async/Await</strong></h4>
     <p>In asynchronous programming, <em>async</em> and <em>await</em> keywords in C# provide a way to handle concurrency. The <em>SynchronizationContext</em> class allows you to manage how asynchronous methods run and ensure they execute on the correct context, like the UI thread.</p>
-    <pre><code class="language-csharp">public async Task UpdateUIAsync()
-{
-    await Task.Run(() =&gt;
-    {
-        // Perform background work
-    });
-    // Update UI safely
-    // This code runs on the original context (e.g., UI thread)
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task</span> <span class="token function">UpdateUIAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">await</span> Task<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Perform background work</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Update UI safely</span>
+    <span class="token comment">// This code runs on the original context (e.g., UI thread)</span>
+<span class="token punctuation">}</span></code></pre>
     <h3><strong>3. Considerations for Synchronization</strong></h3>
     <ul>
         <li><strong>Deadlocks</strong>: Be careful with locks. If two threads are waiting for each other to release resources, it can cause a deadlock. Always ensure that locks are released properly, preferably using <em>try/finally</em> blocks.</li>
@@ -171,37 +170,37 @@ public void AccessResource()
         <li><strong>Use Cases</strong>: It’s particularly useful in UI applications, where you want to keep the interface responsive while performing time-consuming operations (like loading data from a web service).</li>
         <li><strong>Implementation in C#</strong>: You can use the <em>async</em> and <em>await</em> keywords to define asynchronous methods. Here’s a simple example:</li>
     </ul>
-    <pre><code class="language-csharp">public async Task&lt;string&gt; FetchDataAsync()
-{
-    using (HttpClient client = new HttpClient())
-    {
-        string result = await client.GetStringAsync("https://example.com");
-        return result;
-    }
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task<span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">&gt;</span></span> <span class="token function">FetchDataAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">using</span> <span class="token punctuation">(</span><span class="token class-name">HttpClient</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name"><span class="token keyword">string</span></span> result <span class="token operator">=</span> <span class="token keyword">await</span> client<span class="token punctuation">.</span><span class="token function">GetStringAsync</span><span class="token punctuation">(</span><span class="token string">"https://example.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h3><strong>3. Parallelism</strong></h3>
     <ul>
         <li><strong>Definition</strong>: Parallelism refers to the execution of multiple tasks simultaneously, leveraging multiple processors or cores. This means that tasks are literally running at the same time, rather than overlapping in execution.</li>
         <li><strong>Use Cases</strong>: Parallelism is beneficial for CPU-bound operations, where tasks can be executed in parallel to reduce execution time. Examples include processing large datasets or performing computations.</li>
         <li><strong>Implementation in C#</strong>: You can achieve parallelism using the <em>Parallel</em> class in the <em>System.Threading.Tasks</em> namespace, as well as with the <em>Task</em> class. Here’s an example using <em>Parallel.For</em>:</li>
     </ul>
-    <pre><code class="language-csharp">Parallel.For(0, 1000, i =&gt;
-{
-    // Perform operations on each element
-    ProcessElement(i);
-});</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp">Parallel<span class="token punctuation">.</span><span class="token function">For</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> i <span class="token operator">=&gt;</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Perform operations on each element</span>
+    <span class="token function">ProcessElement</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     <h3><strong>4. Multi-threading</strong></h3>
     <ul>
         <li><strong>Definition</strong>: Multi-threading is the practice of running multiple threads concurrently within a single process. Each thread can execute code independently, allowing for more efficient use of resources.</li>
         <li><strong>Use Cases</strong>: Multi-threading is used when you need to perform multiple operations at once, such as handling multiple user requests in a server application or performing background computations.</li>
         <li><strong>Implementation in C#</strong>: You can create and manage threads using the <em>Thread</em> class. Here’s a simple example:</li>
     </ul>
-    <pre><code class="language-csharp">Thread myThread = new Thread(() =&gt;
-{
-    // Code to run on the new thread
-    PerformLongRunningTask();
-});
-myThread.Start();</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token class-name">Thread</span> myThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Code to run on the new thread</span>
+    <span class="token function">PerformLongRunningTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+myThread<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     <h3><strong>Key Differences</strong></h3>
     <table>
         <tbody>
@@ -265,33 +264,33 @@ myThread.Start();</code></pre>
         <li><strong>Runtime Polymorphism (Method Overriding)</strong>: A method in a base class is overridden in a derived class, allowing derived classes to implement specific behavior.</li>
     </ul>
     <p><strong>Example:<br></strong>Suppose we have an <em>Animal</em> class with a <em>Speak()</em> method, which is overridden by derived classes like <em>Dog</em> and <em>Cat</em>. This allows us to handle all <em>Animal</em> types using a single interface while allowing each type to have its unique behavior.</p>
-    <pre><code class="language-csharp">public abstract class Animal
-{
-    public abstract string Speak();
-}
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Animal</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-public class Dog : Animal
-{
-    public override string Speak() =&gt; "BOWW"; // Dog's implementation
-}
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">Animal</span></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">"BOWW"</span><span class="token punctuation">;</span> <span class="token comment">// Dog's implementation</span>
+<span class="token punctuation">}</span>
 
-public class Cat : Animal
-{
-    public override string Speak() =&gt; "MEW"; // Cat's implementation
-}
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">Animal</span></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">"MEW"</span><span class="token punctuation">;</span> <span class="token comment">// Cat's implementation</span>
+<span class="token punctuation">}</span>
 
-// Usage of polymorphism
-public class Program
-{
-    public static void Main()
-    {
-        Animal[] animals = { new Dog(), new Cat() };
-        foreach (Animal animal in animals)
-        {
-            Console.WriteLine(animal.Speak()); // Outputs "BOW" and "MEW"
-        }
-    }
-}</code></pre>
+<span class="token comment">// Usage of polymorphism</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Program</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name">Animal<span class="token punctuation">[</span><span class="token punctuation">]</span></span> animals <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Dog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Cat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">Animal</span> animal <span class="token keyword">in</span> animals<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>animal<span class="token punctuation">.</span><span class="token function">Speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Outputs "BOW" and "MEW"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h3><strong>Summary</strong></h3>
     <p>In this example:</p>
     <ul>
@@ -307,7 +306,7 @@ public class Program
     <p>  - The value is constant and unchangeable after compilation.</p>
     <p>  - Implicitly static, so it belongs to the type (class) and not to an instance.</p>
     <p>- Usage:</p>
-    <pre><code class="language-csharp">const double Pi = 3.14159; // Compile-time constant</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">const</span> <span class="token class-name"><span class="token keyword">double</span></span> Pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span> <span class="token comment">// Compile-time constant</span></code></pre>
     <p>  - The value of `Pi` is embedded in the code and cannot be modified or computed at runtime.</p>
     <hr>
     <p>2. <em>readonly</em></p>
@@ -316,11 +315,11 @@ public class Program
     <p>  - It is <strong>not implicitly static</strong>. You can have different <em>readonly</em> values for different instances.</p>
     <p>  - Can store values computed at runtime.</p>
     <p>- <strong>Usage</strong>:</p>
-    <pre><code class="language-csharp">public readonly int MyNumber;
-public MyClass(int number)
-{
-    MyNumber = number; // Assigned in the constructor
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">readonly</span> <span class="token class-name"><span class="token keyword">int</span></span> MyNumber<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token function">MyClass</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> number<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    MyNumber <span class="token operator">=</span> number<span class="token punctuation">;</span> <span class="token comment">// Assigned in the constructor</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
     <p>3. <em>static</em></p>
     <p>- <strong>Definition</strong>: A modifier indicating that a member belongs to the type (class) rather than to any particular instance.</p>
@@ -329,11 +328,11 @@ public MyClass(int number)
     <p>  - Can be used with methods, fields, properties, or constructors.</p>
     <p>  - Static fields can be modified unless they're marked as <em>const</em> or <em>readonly</em>.</p>
     <p>- <strong>Usage</strong>:</p>
-    <pre><code class="language-csharp">public static int SharedCounter = 0;
-public static void IncrementCounter()
-{
-    SharedCounter++;
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name"><span class="token keyword">int</span></span> SharedCounter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">IncrementCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    SharedCounter<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
     <p><strong>Key Differences</strong></p>
     <table>
         <tbody>
@@ -368,19 +367,19 @@ public static void IncrementCounter()
     <h3><strong>1. Assignment Time</strong></h3>
     <p><strong><em>const</em></strong>: Must be assigned a value at the time of declaration. The value is fixed and cannot be changed thereafter.</p>
     <p><br><em>public class Constants</em></p>
-    <pre><code class="language-csharp">public class Constants 
-{
-    public const double Pi = 3.14159; // Must be initialized here
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Constants</span> 
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">const</span> <span class="token class-name"><span class="token keyword">double</span></span> Pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span> <span class="token comment">// Must be initialized here</span>
+<span class="token punctuation">}</span></code></pre>
     <p><strong><em>static readonly</em></strong>: Can be assigned either at the time of declaration or within a static constructor. This allows for more flexibility in initialization, such as using values that are not known at compile time.</p>
-    <pre><code class="language-csharp">public class Configuration
-{
-    public static readonly string FilePath;
-    static Configuration()
-    {
-        FilePath = "C:\\path\\to\\file.txt"; // Initialized in a static constructor
-    }
-}</code></pre>
+    <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Configuration</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> <span class="token class-name"><span class="token keyword">string</span></span> FilePath<span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token function">Configuration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        FilePath <span class="token operator">=</span> <span class="token string">"C:\\path\\to\\file.txt"</span><span class="token punctuation">;</span> <span class="token comment">// Initialized in a static constructor</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     <h3><strong>2. Compile-Time vs. Run-Time</strong></h3>
     <p><strong><em>const</em></strong>: Treated as a compile-time constant. The compiler substitutes the constant value wherever it is used. This means it cannot reference any variables or calculations that are determined at run time.<br>public const int MaxUsers = 100; // Compile-time constant</p>
     <p><strong><em>static readonly</em></strong>: Evaluated at run time. This means you can assign it based on logic or calculations that are evaluated when the class is loaded.<br>public static readonly int MaxUsers = CalculateMaxUsers(); // Run-time evaluation</p>
@@ -422,23 +421,23 @@ public static void IncrementCounter()
     <h3><strong>Conclusion</strong></h3>
     <p>Use <em>const</em> when you have a truly constant value known at compile time, and use <em>static readonly</em> when the value is fixed but may need to be initialized based on some runtime logic.</p>
     <h1>DIFFERENCE BETWEEN <em>public</em>, <em>privat</em>, <em>protected</em> AND <em>internal</em>?</h1>
-<pre><code class="language-csharp">public class ToyBox
-{
-public string PublicToy { get; set; }   	// Anyone can see and use this toy.
-private string PrivateToy { get; set; }   	// Only this class can see and use this toy.
-protected string ProtectedToy { get; set; }	// This class and its deprived classes can see / use this toy.
-internal string InternalToy { get; set; }   	// Only this assembly (project) can see and use this toy.
-}
+<pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ToyBox</span>
+<span class="token punctuation">{</span>
+<span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> PublicToy <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>   	<span class="token comment">// Anyone can see and use this toy.</span>
+<span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> PrivateToy <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>   	<span class="token comment">// Only this class can see and use this toy.</span>
+<span class="token keyword">protected</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> ProtectedToy <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>	<span class="token comment">// This class and its deprived classes can see / use this toy.</span>
+<span class="token keyword">internal</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> InternalToy <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>   	<span class="token comment">// Only this assembly (project) can see and use this toy.</span>
+<span class="token punctuation">}</span>
 
-public class SpecialToyBox : ToyBox
-{
-public void ShowToys()
-{
-    // Can access all toys here
-    Console.WriteLine(PublicToy);     	// OK: Anyone can see it
-    Console.WriteLine(ProtectedToy);    	// OK: Inherited class can see it
-    Console.WriteLine(PrivateToy);  	// ERROR: Can't see PrivateToy, it's a secret!
-    Console.WriteLine(InternalToy);    	// OK: It's in the same project
-}
-}</code></pre>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpecialToyBox</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ToyBox</span></span>
+<span class="token punctuation">{</span>
+<span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">ShowToys</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Can access all toys here</span>
+    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>PublicToy<span class="token punctuation">)</span><span class="token punctuation">;</span>     	<span class="token comment">// OK: Anyone can see it</span>
+    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>ProtectedToy<span class="token punctuation">)</span><span class="token punctuation">;</span>    	<span class="token comment">// OK: Inherited class can see it</span>
+    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>PrivateToy<span class="token punctuation">)</span><span class="token punctuation">;</span>  	<span class="token comment">// ERROR: Can't see PrivateToy, it's a secret!</span>
+    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>InternalToy<span class="token punctuation">)</span><span class="token punctuation">;</span>    	<span class="token comment">// OK: It's in the same project</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
     
