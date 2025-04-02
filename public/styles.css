@@ -153,18 +153,10 @@ ol {
     gap: 10px;
     padding: 10px;
     width: -webkit-fill-available;
-    font-size: 12px;
-}
-.navbar-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    width: -webkit-fill-available;
     border-bottom: #3c3c3c 2px solid;
     font-size: 12px;
 }
-.navbar-item,
-.navbar-add {
+
+.navbar-item {
     cursor: pointer;
 }
