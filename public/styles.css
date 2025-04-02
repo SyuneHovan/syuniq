@@ -166,3 +166,10 @@ ol {
 .navbar-item {
     cursor: pointer;
 }
+
+.color-tool {
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+}
