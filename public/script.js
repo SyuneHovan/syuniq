@@ -126,7 +126,9 @@ function toggleHeaderContent(header, toggleIcon) {
     while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
         // isHidden = nextElement.style.display === "none";
         nextElement.style.display = isHidden ? "none" : "block";
-        nextElement.classList.remove("close");
+        nextElement.classList.remove("closed");
+        nextElement.querySelector("span.toggle-icon").innerHTML = "🌻";
+
         nextElement = nextElement.nextElementSibling;
     }
     
