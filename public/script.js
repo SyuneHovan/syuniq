@@ -170,59 +170,95 @@ function navBarAdd() {
     const navbar = document.querySelector(".navbar");
     const navbarAdd = document.querySelector(".navbar-add");
 
+    // Load existing navbar items from index.html
+    loadNavbarItems();
+
     navbarAdd.addEventListener("click", function () {
-        // Check if an input field already exists
         if (document.querySelector(".navbar-input")) return;
 
-        // Create input field
         let input = document.createElement("input");
         input.type = "text";
         input.classList.add("navbar-input");
         input.placeholder = "Enter new page name";
 
-        // Create submit button
         let submitBtn = document.createElement("button");
         submitBtn.textContent = "Add";
         submitBtn.classList.add("navbar-submit");
 
-        // Append to navbar
         navbar.appendChild(input);
         navbar.appendChild(submitBtn);
 
-        // Handle submission
         submitBtn.addEventListener("click", function () {
             let pageName = input.value.trim();
-            if (pageName === "") return; // Prevent empty values
+            if (pageName === "") return;
 
-            let fileName = pageName.toLowerCase().replace(/\s+/g, "_") + ".html"; // Format filename
+            let fileName = pageName.toLowerCase().replace(/\s+/g, "_") + ".html";
 
-            // Create new nav item
-            let newNavItem = document.createElement("div");
-            newNavItem.classList.add("navbar-item");
-            newNavItem.textContent = pageName;
-            newNavItem.setAttribute("onclick", `changePage('${fileName}')`);
+            addNavbarItem(pageName, fileName);
 
-            // Append new item to navbar
-            navbar.appendChild(newNavItem);
+            // Update index.html
+            updateIndexHtml(pageName, fileName);
 
-            // Clean up input and button
             input.remove();
             submitBtn.remove();
-
-            // Call server function to create the file (this requires backend support)
-            createNewFile(fileName);
         });
     });
+};
+
+function addNavbarItem(pageName, fileName) {
+    const navbar = document.querySelector(".navbar");
+
+    let newNavItem = document.createElement("div");
+    newNavItem.classList.add("navbar-item");
+    newNavItem.textContent = pageName;
+    newNavItem.setAttribute("onclick", `changePage('${fileName}')`);
+
+    navbar.appendChild(newNavItem);
 }
 
-// Function to send request to backend (Node.js, PHP, etc.) to create a new file
-function createNewFile(fileName) {
-    fetch("/create-file", {
+// Function to fetch index.html, modify navbar, and save it back to GitHub
+function updateIndexHtml(pageName, fileName) {
+    fetch("/api/getFile?file=index.html")
+        .then(response => response.text())
+        .then(htmlContent => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(htmlContent, "text/html");
+
+            let navbar = doc.querySelector(".navbar");
+            let newNavItem = `<div class="navbar-item" onclick="changePage('${fileName}')">${pageName}</div>`;
+            navbar.innerHTML += newNavItem;
+
+            saveIndexHtml(doc.documentElement.outerHTML);
+        })
+        .catch(error => console.error("Error fetching index.html:", error));
+}
+
+// Function to send updated index.html to GitHub
+function saveIndexHtml(updatedHtml) {
+    fetch("/api/saveFile?file=index.html", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fileName: fileName }),
+        body: JSON.stringify({ content: updatedHtml })
     })
-    .then(response => response.json())
-    .then(data => console.log("File Created:", data))
-    .catch(error => console.error("Error creating file:", error));
+    .then(response => response.text())
+    .then(data => console.log("index.html updated:", data))
+    .catch(error => console.error("Error saving index.html:", error));
+}
+
+// Function to load saved items from index.html (optional if you modify directly)
+function loadNavbarItems() {
+    fetch("/api/getFile?file=index.html")
+        .then(response => response.text())
+        .then(htmlContent => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(htmlContent, "text/html");
+            let items = doc.querySelectorAll(".navbar-item");
+
+            items.forEach(item => {
+                let pageName = item.textContent;
+                let fileName = item.getAttribute("onclick").match(/'([^']+)'/)[1];
+                addNavbarItem(pageName, fileName);
+            });
+        })
+        .catch(error => console.error("Error loading navbar items:", error));
 }
