@@ -111,8 +111,13 @@ function createToggleIcon() {
 }
 
 function toggleHeaderContent(header, toggleIcon) {
-    let isHidden = header.classList.contains("closed");     
+    if (header.classList.contains("closed"))
+        header.classList.remove("closed");
+    else 
+    header.classList.add("closed"); 
 
+    let isHidden = header.classList.contains("closed");    
+    
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
     
