@@ -127,7 +127,9 @@ function toggleHeaderContent(header, toggleIcon) {
         // isHidden = nextElement.style.display === "none";
         nextElement.style.display = isHidden ? "none" : "block";
         nextElement.classList.remove("closed");
-        nextElement.querySelector("span.toggle-icon")?.innerHTML = "🌻";
+        if (nextElement.querySelector("span.toggle-icon")) {
+            nextElement.querySelector("span.toggle-icon").innerHTML = "🌻";
+        }
 
         nextElement = nextElement.nextElementSibling;
     }
