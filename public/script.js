@@ -7,6 +7,7 @@ async function loadContent() {
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
     headerToggle();
+    navBarAdd();
 }
 
 async function saveContent() {
@@ -163,4 +164,65 @@ function headerToggle() {
 
 function removeAllIcons() {
     document.querySelectorAll("span.toggle-icon").forEach(icon => icon.remove());
+}
+
+function navBarAdd() {
+    const navbar = document.querySelector(".navbar");
+    const navbarAdd = document.querySelector(".navbar-add");
+
+    navbarAdd.addEventListener("click", function () {
+        // Check if an input field already exists
+        if (document.querySelector(".navbar-input")) return;
+
+        // Create input field
+        let input = document.createElement("input");
+        input.type = "text";
+        input.classList.add("navbar-input");
+        input.placeholder = "Enter new page name";
+
+        // Create submit button
+        let submitBtn = document.createElement("button");
+        submitBtn.textContent = "Add";
+        submitBtn.classList.add("navbar-submit");
+
+        // Append to navbar
+        navbar.appendChild(input);
+        navbar.appendChild(submitBtn);
+
+        // Handle submission
+        submitBtn.addEventListener("click", function () {
+            let pageName = input.value.trim();
+            if (pageName === "") return; // Prevent empty values
+
+            let fileName = pageName.toLowerCase().replace(/\s+/g, "_") + ".html"; // Format filename
+
+            // Create new nav item
+            let newNavItem = document.createElement("div");
+            newNavItem.classList.add("navbar-item");
+            newNavItem.textContent = pageName;
+            newNavItem.setAttribute("onclick", `changePage('${fileName}')`);
+
+            // Append new item to navbar
+            navbar.appendChild(newNavItem);
+
+            // Clean up input and button
+            input.remove();
+            submitBtn.remove();
+
+            // Call server function to create the file (this requires backend support)
+            createNewFile(fileName);
+        });
+    });
+}
+
+// Function to send request to backend (Node.js, PHP, etc.) to create a new file
+function createNewFile(fileName) {
+    fetch("/create-file", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileName: fileName }),
+    })
+    .then(response => response.json())
+    .then(data => console.log("File Created:", data))
+    .catch(error => console.error("Error creating file:", error));
 }
