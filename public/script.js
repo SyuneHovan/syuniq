@@ -37,6 +37,10 @@ function changePage(newFilePath) {
     loadContent()
 }
 
+function applyLineThrough() {
+    document.execCommand('strikeThrough');
+}
+
 function applyItalic() {
     document.execCommand('italic');
 }
