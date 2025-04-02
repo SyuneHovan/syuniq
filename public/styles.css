@@ -15,6 +15,12 @@ body {
 em {
     color: #7bdbdd;
 }
+.blue {
+    color: #7bdbdd;
+}
+.red {
+    color: #dd7e6b;
+}
 h1, h2, h3 {
     color: #d5d5d5;
 }

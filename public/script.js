@@ -45,6 +45,14 @@ function applyItalic() {
     document.execCommand('italic');
 }
 
+function applyBlue() {
+    document.execCommand('foreColor', false, '#7bdbdd');
+}
+
+function applyRed() {
+    document.execCommand('foreColor', false, '#dd7e6b');
+}
+
 function applyNote() {
     // Ensure the selection exists and the browser supports execCommand
     var selection = window.getSelection();
