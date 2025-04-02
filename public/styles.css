@@ -144,7 +144,7 @@ ol {
 .header {
     position: fixed;
     top: 0;
-    padding: 5px;
+    padding: 5px 5px 0;
     width: -webkit-fill-available;
     left: 0;
     backdrop-filter: blur(4px);
