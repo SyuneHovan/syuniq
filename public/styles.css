@@ -108,7 +108,7 @@ ol {
 
 /* Editor toolbar styles */
 .toolbar {
-    padding: 10px;
+    padding: 5px;
     width: max-content;
     backdrop-filter: blur(4px);
     display: flex;
@@ -144,20 +144,19 @@ ol {
 .header {
     position: fixed;
     top: 0;
-    padding: 10px;
+    padding: 5px;
     width: -webkit-fill-available;
     left: 0;
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
-    gap: 5px;
     flex-wrap: wrap;
 }
 .navbar {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px;
+    padding: 5px;
     width: -webkit-fill-available;
     border-bottom: #3c3c3c 2px solid;
     font-size: 12px;
