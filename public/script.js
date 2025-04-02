@@ -102,7 +102,6 @@ function triggerPrism() {
     });
     console.log("codeBlocks", codeBlocks)
 }
-
 function createToggleIcon() {
     let toggleIcon = document.createElement("span");
     toggleIcon.innerHTML = "🌻"; // Default icon (closed state)
@@ -127,8 +126,13 @@ function toggleHeaderContent(header, toggleIcon) {
 
     // Traverse through the next sibling elements, toggling visibility
     while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
-        // Only toggle visibility of elements until the next header of equal or higher level
-        nextElement.style.display = isHidden ? "none" : "block";
+        // If the next element is a child header (e.g., h2 under h1), 
+        // we should not toggle it if it was already closed
+        if (nextElement.matches('h1, h2, h3, h4, h5') && nextElement.classList.contains("closed")) {
+            nextElement.style.display = "none";
+        } else {
+            nextElement.style.display = isHidden ? "none" : "block";
+        }
         nextElement = nextElement.nextElementSibling;
     }
 
@@ -142,7 +146,7 @@ function headerToggle() {
     headers.forEach((header) => {
         // Remove existing icons before adding new ones
         let existingIcon = header.querySelector("span.toggle-icon");
-        let isHidden = header.classList.contains("closed");   
+        let isHidden = header.classList.contains("closed");
         if (existingIcon) {
             existingIcon.remove();
         }
