@@ -218,7 +218,7 @@ function addNavbarItem(pageName, fileName) {
 
 // Function to fetch index.html, modify navbar, and save it back to GitHub
 function updateIndexHtml(pageName, fileName) {
-    fetch("/api/getFile?file=index.html")
+    fetch("/api/get-content?file=index.html")
         .then(response => response.text())
         .then(htmlContent => {
             let parser = new DOMParser();
@@ -235,7 +235,7 @@ function updateIndexHtml(pageName, fileName) {
 
 // Function to send updated index.html to GitHub
 function saveIndexHtml(updatedHtml) {
-    fetch("/api/saveFile?file=index.html", {
+    fetch("/api/save-content?file=index.html", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: updatedHtml })
@@ -247,7 +247,7 @@ function saveIndexHtml(updatedHtml) {
 
 // Function to load saved items from index.html (optional if you modify directly)
 function loadNavbarItems() {
-    fetch("/api/getFile?file=index.html")
+    fetch("/api/get-content?file=index.html")
         .then(response => response.text())
         .then(htmlContent => {
             let parser = new DOMParser();
