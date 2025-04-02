@@ -6,7 +6,7 @@ async function loadContent() {
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
-    headerIcon();
+    createToggleIcon();
     toggleHeaderContent();
 }
 
@@ -18,7 +18,7 @@ async function saveContent() {
         body: JSON.stringify({ content })
     });
     triggerPrism(); // Call Prism to apply syntax highlighting
-    headerIcon();
+    createToggleIcon();
 }
 
 // Load content on page load
