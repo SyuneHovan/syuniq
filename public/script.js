@@ -122,7 +122,7 @@ function toggleHeaderContent(header, toggleIcon) {
     }
     
     // Toggle icon direction
-    toggleIcon.innerHTML = isHidden ? "▼" : "▶";
+    toggleIcon.innerHTML = isHidden ? "🌼🍀" : "🌻";
 }
 
 function headerToggle() {
