@@ -11,6 +11,7 @@ async function loadContent() {
 }
 
 async function saveContent() {
+    removeAllIcons();
     const content = document.getElementById("editor").innerHTML;
     await fetch(`${SERVER_URL}/api/save-content.js?file=${encodeURIComponent(filePath)}`, {
         method: "POST",
@@ -102,23 +103,6 @@ function triggerPrism() {
     });
     console.log("codeBlocks", codeBlocks)
 }
-
-function headerToggle() {
-    var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
-    
-    headers.forEach((header, index) => {
-        header.addEventListener("click", () => {
-            let nextElement = header.nextElementSibling;
-            let headerTag = header.tagName;
-            
-            while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
-                nextElement.style.display = (nextElement.style.display === "none") ? "block" : "none";
-                nextElement = nextElement.nextElementSibling;
-            }
-        });
-    });
-}
-
 function createToggleIcon() {
     let toggleIcon = document.createElement("span");
     toggleIcon.innerHTML = "▶"; // Default icon (closed state)
@@ -131,13 +115,13 @@ function toggleHeaderContent(header, toggleIcon) {
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
     let isHidden = false;
-
-    while (nextElement !== null && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
+    
+    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
         isHidden = nextElement.style.display === "none";
         nextElement.style.display = isHidden ? "block" : "none";
         nextElement = nextElement.nextElementSibling;
     }
-
+    
     // Toggle icon direction
     toggleIcon.innerHTML = isHidden ? "▼" : "▶";
 }
@@ -146,7 +130,14 @@ function headerToggle() {
     var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     
     headers.forEach((header) => {
+        // Remove existing icons before adding new ones
+        let existingIcon = header.querySelector("span.toggle-icon");
+        if (existingIcon) {
+            existingIcon.remove();
+        }
+        
         let toggleIcon = createToggleIcon();
+        toggleIcon.classList.add("toggle-icon");
         header.prepend(toggleIcon);
         
         toggleIcon.addEventListener("click", (event) => {
@@ -154,4 +145,8 @@ function headerToggle() {
             event.stopPropagation(); // Prevent event from bubbling to header
         });
     });
+}
+
+function removeAllIcons() {
+    document.querySelectorAll("span.toggle-icon").forEach(icon => icon.remove());
 }
