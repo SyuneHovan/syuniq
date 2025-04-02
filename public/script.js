@@ -6,6 +6,7 @@ async function loadContent() {
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
+    headerToggle();
 }
 
 async function saveContent() {
@@ -98,4 +99,20 @@ function triggerPrism() {
         }
     });
     console.log("codeBlocks", codeBlocks)
+}
+
+function headerToggle() {
+    var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
+    
+    headers.forEach((header, index) => {
+        header.addEventListener("click", () => {
+            let nextElement = header.nextElementSibling;
+            let headerTag = header.tagName;
+            
+            while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
+                nextElement.style.display = (nextElement.style.display === "none") ? "block" : "none";
+                nextElement = nextElement.nextElementSibling;
+            }
+        });
+    });
 }
