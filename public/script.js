@@ -105,7 +105,7 @@ function triggerPrism() {
 }
 function createToggleIcon() {
     let toggleIcon = document.createElement("span");
-    toggleIcon.innerHTML = "▶"; // Default icon (closed state)
+    toggleIcon.innerHTML = "🌻"; // Default icon (closed state)
     toggleIcon.style.cursor = "pointer";
     toggleIcon.style.marginRight = "8px";
     return toggleIcon;
