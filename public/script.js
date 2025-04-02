@@ -102,6 +102,8 @@ function triggerPrism() {
     });
     console.log("codeBlocks", codeBlocks)
 }
+
+
 function createToggleIcon() {
     let toggleIcon = document.createElement("span");
     toggleIcon.innerHTML = "🌻"; // Default icon (closed state)
@@ -111,52 +113,42 @@ function createToggleIcon() {
 }
 
 function toggleHeaderContent(header, toggleIcon) {
-    // Toggle the 'closed' class for the header
-    if (header.classList.contains("closed")) {
+    if (header.classList.contains("closed"))
         header.classList.remove("closed");
-    } else {
-        header.classList.add("closed");
-    }
+    else 
+    header.classList.add("closed"); 
 
-    // Check if the header is closed
-    let isHidden = header.classList.contains("closed");
-
+    let isHidden = header.classList.contains("closed");    
+    
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
-
-    // Traverse through the next sibling elements, toggling visibility
-    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
-        // If the next element is a child header (e.g., h2 under h1), 
-        // we should not toggle it if it was already closed
-        if (nextElement.matches('h1, h2, h3, h4, h5') && nextElement.classList.contains("closed")) {
-            nextElement.style.display = "none";
-        } else {
-            nextElement.style.display = isHidden ? "none" : "block";
-        }
+    
+    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || isHidden || nextElement.tagName > headerTag)) {
+        // isHidden = nextElement.style.display === "none";
+        nextElement.style.display = isHidden ? "none" : "block";
         nextElement = nextElement.nextElementSibling;
     }
-
+    
     // Toggle icon direction
     toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
 }
 
 function headerToggle() {
     var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
-
+    
     headers.forEach((header) => {
         // Remove existing icons before adding new ones
         let existingIcon = header.querySelector("span.toggle-icon");
-        let isHidden = header.classList.contains("closed");
+        let isHidden = header.classList.contains("closed");   
         if (existingIcon) {
             existingIcon.remove();
         }
-
-        // Create and add the toggle icon to the header
+        
         let toggleIcon = createToggleIcon();
         toggleIcon.classList.add("toggle-icon");
         toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
         header.prepend(toggleIcon);
-
+        
         toggleIcon.addEventListener("click", (event) => {
             toggleHeaderContent(header, toggleIcon);
             event.stopPropagation(); // Prevent event from bubbling to header
