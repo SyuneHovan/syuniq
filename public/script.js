@@ -123,7 +123,7 @@ function toggleHeaderContent(header, toggleIcon) {
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
     
-    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || isHidden || nextElement.tagName > headerTag)) {
+    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || !isHidden || nextElement.tagName > headerTag)) {
         // isHidden = nextElement.style.display === "none";
         nextElement.style.display = isHidden ? "none" : "block";
         nextElement = nextElement.nextElementSibling;
