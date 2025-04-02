@@ -111,13 +111,14 @@ function createToggleIcon() {
 }
 
 function toggleHeaderContent(header, toggleIcon) {
+    let isHidden = header.classList.contains("closed");     
+
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
-    let isHidden = false;
     
     while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
-        isHidden = nextElement.style.display === "none";
-        nextElement.style.display = isHidden ? "block" : "none";
+        // isHidden = nextElement.style.display === "none";
+        nextElement.style.display = isHidden ? "none" : "block";
         nextElement = nextElement.nextElementSibling;
     }
     
@@ -131,13 +132,14 @@ function headerToggle() {
     headers.forEach((header) => {
         // Remove existing icons before adding new ones
         let existingIcon = header.querySelector("span.toggle-icon");
+        let isHidden = header.classList.contains("closed");   
         if (existingIcon) {
             existingIcon.remove();
         }
         
         let toggleIcon = createToggleIcon();
         toggleIcon.classList.add("toggle-icon");
-        toggleIcon.innerHTML = header.style.display === "none" ? "🌿" : "🌻";
+        toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
         header.prepend(toggleIcon);
         
         toggleIcon.addEventListener("click", (event) => {
