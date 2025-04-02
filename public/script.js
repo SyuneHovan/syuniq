@@ -122,7 +122,7 @@ function toggleHeaderContent(header, toggleIcon) {
     }
     
     // Toggle icon direction
-    toggleIcon.innerHTML = isHidden ? "🌼🍀" : "🌻";
+    toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
 }
 
 function headerToggle() {
@@ -137,6 +137,7 @@ function headerToggle() {
         
         let toggleIcon = createToggleIcon();
         toggleIcon.classList.add("toggle-icon");
+        toggleIcon.innerHTML = header.style.display === "none" ? "🌿" : "🌻";
         header.prepend(toggleIcon);
         
         toggleIcon.addEventListener("click", (event) => {
