@@ -131,13 +131,13 @@ function toggleHeaderContent(header, toggleIcon) {
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
     let isHidden = false;
-    
-    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
+
+    while (nextElement !== null && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
         isHidden = nextElement.style.display === "none";
         nextElement.style.display = isHidden ? "block" : "none";
         nextElement = nextElement.nextElementSibling;
     }
-    
+
     // Toggle icon direction
     toggleIcon.innerHTML = isHidden ? "▼" : "▶";
 }
