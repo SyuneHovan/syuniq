@@ -102,6 +102,7 @@ function triggerPrism() {
     });
     console.log("codeBlocks", codeBlocks)
 }
+
 function createToggleIcon() {
     let toggleIcon = document.createElement("span");
     toggleIcon.innerHTML = "🌻"; // Default icon (closed state)
@@ -111,29 +112,33 @@ function createToggleIcon() {
 }
 
 function toggleHeaderContent(header, toggleIcon) {
-    if (header.classList.contains("closed"))
+    // Toggle the 'closed' class for the header
+    if (header.classList.contains("closed")) {
         header.classList.remove("closed");
-    else 
-    header.classList.add("closed"); 
+    } else {
+        header.classList.add("closed");
+    }
 
-    let isHidden = header.classList.contains("closed");    
-    
+    // Check if the header is closed
+    let isHidden = header.classList.contains("closed");
+
     let nextElement = header.nextElementSibling;
     let headerTag = header.tagName;
-    
+
+    // Traverse through the next sibling elements, toggling visibility
     while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
-        // isHidden = nextElement.style.display === "none";
+        // Only toggle visibility of elements until the next header of equal or higher level
         nextElement.style.display = isHidden ? "none" : "block";
         nextElement = nextElement.nextElementSibling;
     }
-    
+
     // Toggle icon direction
     toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
 }
 
 function headerToggle() {
     var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
-    
+
     headers.forEach((header) => {
         // Remove existing icons before adding new ones
         let existingIcon = header.querySelector("span.toggle-icon");
@@ -141,12 +146,13 @@ function headerToggle() {
         if (existingIcon) {
             existingIcon.remove();
         }
-        
+
+        // Create and add the toggle icon to the header
         let toggleIcon = createToggleIcon();
         toggleIcon.classList.add("toggle-icon");
         toggleIcon.innerHTML = isHidden ? "🌿" : "🌻";
         header.prepend(toggleIcon);
-        
+
         toggleIcon.addEventListener("click", (event) => {
             toggleHeaderContent(header, toggleIcon);
             event.stopPropagation(); // Prevent event from bubbling to header
