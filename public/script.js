@@ -7,7 +7,6 @@ async function loadContent() {
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
     headerToggle();
-    navBarAdd();
 }
 
 async function saveContent() {
