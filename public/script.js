@@ -6,7 +6,8 @@ async function loadContent() {
     const text = await response.text();
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
-    headerToggle();
+    headerIcon();
+    toggleHeaderContent();
 }
 
 async function saveContent() {
@@ -17,6 +18,7 @@ async function saveContent() {
         body: JSON.stringify({ content })
     });
     triggerPrism(); // Call Prism to apply syntax highlighting
+    headerIcon();
 }
 
 // Load content on page load
@@ -115,4 +117,27 @@ function headerToggle() {
             }
         });
     });
+}
+
+function createToggleIcon() {
+    let toggleIcon = document.createElement("span");
+    toggleIcon.innerHTML = "▶"; // Default icon (closed state)
+    toggleIcon.style.cursor = "pointer";
+    toggleIcon.style.marginRight = "8px";
+    return toggleIcon;
+}
+
+function toggleHeaderContent(header, toggleIcon) {
+    let nextElement = header.nextElementSibling;
+    let headerTag = header.tagName;
+    let isHidden = false;
+    
+    while (nextElement && (!nextElement.matches('h1, h2, h3, h4, h5') || nextElement.tagName > headerTag)) {
+        isHidden = nextElement.style.display === "none";
+        nextElement.style.display = isHidden ? "block" : "none";
+        nextElement = nextElement.nextElementSibling;
+    }
+    
+    // Toggle icon direction
+    toggleIcon.innerHTML = isHidden ? "▼" : "▶";
 }
