@@ -7,7 +7,7 @@ async function loadContent() {
     document.getElementById("editor").innerHTML = text;
     triggerPrism(); // Call Prism to apply syntax highlighting
     createToggleIcon();
-    toggleHeaderContent();
+    headerToggle();
 }
 
 async function saveContent() {
@@ -140,4 +140,18 @@ function toggleHeaderContent(header, toggleIcon) {
 
     // Toggle icon direction
     toggleIcon.innerHTML = isHidden ? "▼" : "▶";
+}
+
+function headerToggle() {
+    var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
+    
+    headers.forEach((header) => {
+        let toggleIcon = createToggleIcon();
+        header.prepend(toggleIcon);
+        
+        toggleIcon.addEventListener("click", (event) => {
+            toggleHeaderContent(header, toggleIcon);
+            event.stopPropagation(); // Prevent event from bubbling to header
+        });
+    });
 }
